@@ -20,18 +20,17 @@ public class Day1Part1 {
 
         public void solve() {
             try {
-                List<String> lines = fileReader.readLinesFromResourceFile("test.txt");
+                List<String> lines = fileReader.readLinesFromResourceFile("input.txt");
                  int local = 0;
 
                 for(int i=0; i<lines.size(); i++) {
                     String line = lines.get(i);
                     System.out.println("Line" + (i+1) + "=" + line);
-                    local=local+ zahlenzieher.simpleExtractFirst(line);
+                    local=local+ zahlenzieher.simpleExtractFirstAndLastNumbers(line);
                     System.out.println("Progressive end result:" + local);
                 }
-
-
-            } catch(IOException ex) {
+            }
+            catch(IOException ex) {
                 System.err.println("Error reading file: " + ex.getMessage());
             }
 
