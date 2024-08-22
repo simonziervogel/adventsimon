@@ -93,15 +93,19 @@ public class Zahlenzieher {
     public int advanceExtract(String str){
         int first;
         int last;
-        String reverse;
+        String reverse ="";
         String lineresult;
 
-        first = standardAdvanceExtract(str);  //returns int/number string which comes first in str
+        first = this.standardAdvanceExtract(str);  //returns int/number string which comes first in str
 
-        StringBuilder sb = new StringBuilder();
-        reverse = sb.reverse().toString();
-        System.out.println("Das istb der reversed String:" + reverse);
-        last =standardAdvanceExtract(reverse);
+       /*StringBuilder sb = new StringBuilder();
+        reverse = sb.reverse().toString();*/
+
+        for (int i = 0; i < str.length(); i++) {
+            reverse = str.charAt(i) + reverse;
+        }
+        System.out.println("Das ist der reversed String:" + reverse);
+        last =standardAdvanceExtractReverse(reverse);
 
         StringBuilder sb2  = new StringBuilder();
         sb2.append(first);
@@ -133,35 +137,35 @@ public class Zahlenzieher {
             temp = str.indexOf("1");
             candidate = 1;
         }
-        else if (str.contains("2") && str.indexOf("2") < temp) {
+        if (str.contains("2") && str.indexOf("2") < temp) {
             temp = str.indexOf("2");
             candidate = 2;
         }
-        else if (str.contains("3") && str.indexOf("3") < temp) {
+        if (str.contains("3") && str.indexOf("3") < temp) {
             temp = str.indexOf("3");
             candidate = 3;
         }
-        else if (str.contains("4") && str.indexOf("4") < temp) {
+        if (str.contains("4") && str.indexOf("4") < temp) {
             temp = str.indexOf("4");
             candidate = 4;
         }
-        else if (str.contains("5") && str.indexOf("5") < temp) {
+        if (str.contains("5") && str.indexOf("5") < temp) {
             temp = str.indexOf("5");
             candidate = 5;
         }
-        else if (str.contains("6") && str.indexOf("6") < temp) {
+        if (str.contains("6") && str.indexOf("6") < temp) {
             temp = str.indexOf("6");
             candidate = 6;
         }
-        else if (str.contains("7") && str.indexOf("7") < temp) {
+        if (str.contains("7") && str.indexOf("7") < temp) {
             temp = str.indexOf("7");
             candidate = 7;
         }
-        else if (str.contains("8") && str.indexOf("8") < temp) {
+        if (str.contains("8") && str.indexOf("8") < temp) {
             temp = str.indexOf("8");
             candidate = 8;
         }
-        else if (str.contains("9") && str.indexOf("9") < temp) {
+        if (str.contains("9") && str.indexOf("9") < temp) {
             temp = str.indexOf("9");
             candidate = 9;
         }
@@ -170,35 +174,35 @@ public class Zahlenzieher {
             temp = str.indexOf("one");
             candidate = 1;
         }
-        else if (str.contains("two") && str.indexOf("two") < temp) {
+        if (str.contains("two") && str.indexOf("two") < temp) {
             temp = str.indexOf("two");
             candidate = 2;
         }
-        else if (str.contains("three") && str.indexOf("three") < temp) {
+        if (str.contains("three") && str.indexOf("three") < temp) {
             temp = str.indexOf("three");
             candidate = 3;
         }
-        else if (str.contains("four") && str.indexOf("four") < temp) {
+        if (str.contains("four") && str.indexOf("four") < temp) {
             temp = str.indexOf("four");
             candidate = 4;
         }
-        else if (str.contains("five") && str.indexOf("five") < temp) {
+        if (str.contains("five") && str.indexOf("five") < temp) {
             temp = str.indexOf("five");
             candidate = 5;
         }
-        else if (str.contains("six") && str.indexOf("six") < temp) {
+        if (str.contains("six") && str.indexOf("six") < temp) {
             temp = str.indexOf("six");
             candidate = 6;
         }
-        else if (str.contains("seven") && str.indexOf("seven") < temp) {
+        if (str.contains("seven") && str.indexOf("seven") < temp) {
             temp = str.indexOf("seven");
             candidate = 7;
         }
-        else if (str.contains("eight") && str.indexOf("eight") < temp) {
+        if (str.contains("eight") && str.indexOf("eight") < temp) {
             temp = str.indexOf("eight");
             candidate = 8;
         }
-        else if (str.contains("nine") && str.indexOf("nine") < temp) {
+        if (str.contains("nine") && str.indexOf("nine") < temp) {
             temp = str.indexOf("nine");
             candidate = 9;
         }
@@ -210,7 +214,105 @@ public class Zahlenzieher {
         return candidate;
     }
 
+    public int standardAdvanceExtractReverse(String str) {
+        int temp = 100;
+        int candidate= 0;
+        char first;
 
+        System.out.println("Für diesen String wird berechnet:" + str);
+
+
+        /*var map = new HashMap<String, Integer>();
+
+        map.put("1", str.indexOf("1") == -1 ? Integer.MAX_VALUE : str.indexOf("1"));
+        var occurence2 = str.indexOf("2") == -1 ? Integer.MAX_VALUE : str.indexOf("2");
+        var occurence3 = str.indexOf("3");
+        var occurenceNine = str.indexOf("nine");
+
+        var minimum = Collections.min(map.values());
+
+        var minimum = Math.min */
+
+        if (str.contains("1") && str.indexOf("1") < temp) {
+            temp = str.indexOf("1");
+            candidate = 1;
+        }
+        if (str.contains("2") && str.indexOf("2") < temp) {
+            temp = str.indexOf("2");
+            candidate = 2;
+        }
+        if (str.contains("3") && str.indexOf("3") < temp) {
+            temp = str.indexOf("3");
+            candidate = 3;
+        }
+        if (str.contains("4") && str.indexOf("4") < temp) {
+            temp = str.indexOf("4");
+            candidate = 4;
+        }
+        if (str.contains("5") && str.indexOf("5") < temp) {
+            temp = str.indexOf("5");
+            candidate = 5;
+        }
+        if (str.contains("6") && str.indexOf("6") < temp) {
+            temp = str.indexOf("6");
+            candidate = 6;
+        }
+        if (str.contains("7") && str.indexOf("7") < temp) {
+            temp = str.indexOf("7");
+            candidate = 7;
+        }
+        if (str.contains("8") && str.indexOf("8") < temp) {
+            temp = str.indexOf("8");
+            candidate = 8;
+        }
+        if (str.contains("9") && str.indexOf("9") < temp) {
+            temp = str.indexOf("9");
+            candidate = 9;
+        }
+
+        if (str.contains("eno") && str.indexOf("eno") < temp) {
+            temp = str.indexOf("eno");
+            candidate = 1;
+        }
+        if (str.contains("owt") && str.indexOf("owt") < temp) {
+            temp = str.indexOf("owt");
+            candidate = 2;
+        }
+        if (str.contains("eerht") && str.indexOf("eerht") < temp) {
+            temp = str.indexOf("eerht");
+            candidate = 3;
+        }
+        if (str.contains("ruof") && str.indexOf("ruof") < temp) {
+            temp = str.indexOf("ruof");
+            candidate = 4;
+        }
+        if (str.contains("evif") && str.indexOf("evif") < temp) {
+            temp = str.indexOf("evif");
+            candidate = 5;
+        }
+        if (str.contains("xis") && str.indexOf("xis") < temp) {
+            temp = str.indexOf("xis");
+            candidate = 6;
+        }
+        if (str.contains("neves") && str.indexOf("neves") < temp) {
+            temp = str.indexOf("neves");
+            candidate = 7;
+        }
+        if (str.contains("thgie") && str.indexOf("thgie") < temp) {
+            temp = str.indexOf("thgie");
+            candidate = 8;
+        }
+        if (str.contains("enin") && str.indexOf("enin") < temp) {
+            temp = str.indexOf("enin");
+            candidate = 9;
+        }
+
+        //temp ist jetzt die Stelle im String, an der die erste Ziffer/Ziffer in String auftaucht
+        //candidate gibt mir die ziffer/ziffer ausgeschrieben, beides jeweils als String ("9" oder "nine"), die als erstes in der line kommt
+        //char charAtTemp = str.charAt(temp);
+        System.out.println("number found by standardadvanceextractREVERSE:       "+ candidate);
+        return candidate;
+    }
 
 
     /*private boolean containsDigit(String str) {

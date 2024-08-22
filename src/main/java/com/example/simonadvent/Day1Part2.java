@@ -25,7 +25,7 @@ public class Day1Part2 {
     public void solve(){
         try{
             int temp = 0;
-            List<String> lines = fileReader.readLinesFromResourceFile("test.txt");
+            List<String> lines = fileReader.readLinesFromResourceFile("input.txt");
             for(int i=0; i<lines.size(); i++) {
                 String line = lines.get(i);
                 System.out.println("Line" + (i+1) + "=" + line);
