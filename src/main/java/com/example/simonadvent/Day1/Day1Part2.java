@@ -1,6 +1,8 @@
-package com.example.simonadvent;
+package com.example.simonadvent.Day1;
 
 
+import com.example.simonadvent.FileReader;
+import com.example.simonadvent.Zahlenzieher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
