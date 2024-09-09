@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CubeCalculator {
-    public int calculateLine(String line){
-
+    public int calculateLine(String line, int part) throws Exception {
+        System.out.println("line                    " + line);
         String[] idSeparator = line.split(": ");
         System.out.println("HIER MUSS GAME 1:" + idSeparator[0]);
         int iD = this.getID(idSeparator[0]); //aus part 1 "game 1:" wird die iD = 1 rausgezogen
@@ -18,21 +18,40 @@ public class CubeCalculator {
         //System.out.println("first subset:              " + subsets[0]);
         //System.out.println("2nd subset:                  " + subsets[1]);
 
-
-        for (int i = 0; i < subsets.length; i++){              //HIER VLLT NOCH FEHLER MITLENGHT(),
-            if(this.gameNotPossible(subsets[i])){       //wenn eine der Farben zu oft vorkommt wird hier die if schleife ausgeführt --> 0 wird returned für diese line --> pro result wird nicht verändert und nächste line wird ausgeführt
-                return 0;
+        if(part == 1) {
+            for (int i = 0; i < subsets.length; i++) {
+                System.out.println(" SUBSET :" + i + "          " + subsets[i]);
+                if (this.gameNotPossible(subsets[i])) {//wenn eine der Farben zu oft vorkommt wird hier die if schleife ausgeführt --> 0 wird returned für diese line --> pro result wird nicht verändert und nächste line wird ausgeführt;
+                    //System.out.println("DIESES SUBSET KLAPPT NICHT:" + subsets[i]);
+                    throw new NullLineException("NullLineException in Subset " + i + " von Line " + iD);
+                }
             }
+            //System.out.println(subsets);
+            return iD;    //hier muss die game id zurückgegeben werden
         }
-        //System.out.println(subsets);
-        return iD;    //hier muss die game id zurückgegeben werden
+        else if (part == 2) {
+            int tempred = 0;
+            int tempgreen = 0;
+            int tempblue = 0;
 
+            tempred = this.findHighestCountFor("red", subsets);
+            tempgreen = this.findHighestCountFor("green", subsets);
+            tempblue = this.findHighestCountFor("blue", subsets);
+
+            return tempred * tempgreen * tempblue;
+
+
+            }
+        else {
+            throw new Exception("Invalid GamePart ID");
+
+        }
     }
 
     public boolean gameNotPossible(String subset) {//returns true wenn ein Game nicht möglich ist, mehr Würfel gezeigt wurden als eig da sind
         String[] lowest = subset.split(", ");
         for(int i = 0; i < lowest.length; i++){
-            //System.out.println("EINE ZEILE MIT INT UND FARBNAME:" + lowest[i]);
+            System.out.println("EINE ZEILE MIT INT UND FARBNAME:" + lowest[i]);
             if (lowest[i].contains("red")) {
                 int red = Integer.parseInt(lowest[i].split(" ")[0]);
                 if (red > 12) {
@@ -64,5 +83,44 @@ public class CubeCalculator {
 
     public int getID(String input){
         return Integer.parseInt(input.split(" ")[1]);
+    }
+
+
+
+    /*public int calculatePowerOf(String line) {
+        String[] idSeparator = line.split(": ");
+        System.out.println("HIER MUSS GAME 1:" + idSeparator[0]);
+        int iD = this.getID(idSeparator[0]); //aus part 1 "game 1:" wird die iD = 1 rausgezogen
+        System.out.println("HIER MUSS 1:" + idSeparator[1]);
+
+
+    }*/
+
+    /*public <T> int findHighestCountFor(String color, T[] input){
+        String[] lowest = input.split(", ");
+    }*/
+
+    public int findHighestCountFor(String color, String[] input) {
+        int returnValue = 0;
+
+
+        for (int i = 0; i < input.length; i++) {
+
+            String[] lowest = input[i].split(", ");
+
+
+            for (int j = 0; j < lowest.length; j++)
+            {
+                if (lowest[j].contains(color)) {
+                    int numberT = Integer.parseInt(lowest[j].split(" ")[0]);
+                    if (numberT > returnValue) {
+                        returnValue = numberT;
+                    }
+
+                }
+            }
+
+        }
+        return returnValue;
     }
 }
