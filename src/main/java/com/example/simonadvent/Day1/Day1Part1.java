@@ -20,8 +20,7 @@ public class Day1Part1 {
         this.zahlenzieher = zahlenzieher;
     }
 
-        public void solve() {
-            try {
+        public void solve() throws IOException {
                 List<String> lines = fileReader.readLinesFromResourceFile("input.txt");
                  int local = 0;
 
@@ -31,10 +30,6 @@ public class Day1Part1 {
                     local=local+ zahlenzieher.simpleExtractFirstAndLastNumbers(line);
                     System.out.println("Progressive end result:" + local);
                 }
-            }
-            catch(IOException ex) {
-                System.err.println("Error reading file: " + ex.getMessage());
-            }
 
         }
     }
