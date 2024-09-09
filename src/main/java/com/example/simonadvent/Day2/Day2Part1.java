@@ -25,13 +25,26 @@ public class Day2Part1 {
     public void solve() {
         try {
             List<String> lines = fileReader.readLinesFromResourceFile("2put.txt");
-
+            int part = 1;
             int local = 0;
 
             for (int i = 0; i < lines.size(); i++) {
                 String line = lines.get(i);
                 System.out.println("Line" + (i + 1) + "=" + line);
-                local = local + cubeCalculator.calculateLine(line);
+                try {
+                    local = local + cubeCalculator.calculateLine(line,part);
+                } catch (NullLineException e) {
+                    System.out.println("Invalid line: " + e.getMessage());
+                    continue;
+
+                }
+                catch (Exception e) {
+
+                        System.out.println("Invalid  " + e.getMessage());
+                        continue;
+
+                }
+
                 System.out.println("Progressive end result:" + local);
             }
         }
