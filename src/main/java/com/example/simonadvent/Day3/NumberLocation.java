@@ -10,6 +10,12 @@ public class NumberLocation {
         this.number = number;
         countable = false; //default werden wenn Nummern aus line extracted und als numberlocation object erstellt werden--> noch nciht countable
     }
+    public NumberLocation(int startlocation, String number, boolean countable) {
+        this.startlocation = startlocation;
+        this.number = number;
+        this.countable = countable;
+
+    }
 
     public int getLocation(){
         return this.startlocation;
@@ -23,7 +29,7 @@ public class NumberLocation {
         return this.countable ? "YES" : "NO";
     }
 
-    public void setCountable() {
+    public void setCountableTrue() {
         this.countable = true;
     }
 }

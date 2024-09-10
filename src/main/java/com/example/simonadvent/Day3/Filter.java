@@ -1,6 +1,7 @@
 package com.example.simonadvent.Day3;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.example.simonadvent.Utils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,14 +11,20 @@ import java.util.regex.Pattern;
 
 @Component
 public class Filter {
+
+
+    public Filter() {
+
+    }
     public int returnFinalNumber(String lineTop, String line, String lineUnder) {
         List<NumberLocation> allNumbersInLine = extractNumbersWithLocations(line);     // Liste des DatenTyps Number+Location der Number speichert für line alle nummern und location
         if(!lineTop.equals("0")) { // Exception Handling aber manuell
-            //setCountableRegardingTop, topline prüfen
+            allNumbersInLine = this.setTopOrUnderCountable(allNumbersInLine, line, lineTop);     //setCountableRegardingTop, topline prüfen
         }
-        //steCountableRegardingLine
+        allNumbersInLine = this.setCountable(allNumbersInLine, line);   //steCountableRegardingLine
+
         if(!lineUnder.equals("0")) {
-            allNumbersInLine = this.setCountable(allNumbersInLine, line);//setCountable Regarding Under
+            allNumbersInLine = this.setTopOrUnderCountable(allNumbersInLine, line, lineUnder);     //setCountable Regarding Under
         }
 
         //alle nummern in allnumbersinline countabletrue/false setzen und dann alle zusammenaddieren die true
@@ -25,18 +32,32 @@ public class Filter {
             System.out.println("Number: " + nl.getNumber() + ", Location: " + nl.getLocation() + ", Countable: " + nl.getCountable());
 
         }
-        return 0;
-    }
-
-    private List<NumberLocation> setCountable(List<NumberLocation> allNumbersInLine, String line) {
-        for(int i = 0; i < allNumbersInLine.size(); i++) {
-            if(i !=0 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()-1)) == true) {
-                allNumbersInLine.get(i).setCountable();
-            }
-            else if(i != allNumbersInLine.size()-1 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()+1)) == true) {
-
+        int returnvalue = 0;
+        for(NumberLocation nl : allNumbersInLine) {
+            if(nl.getCountable().equals(true)){
+            returnvalue = returnvalue + Integer.parseInt(nl.getNumber());
             }
         }
+        return returnvalue;
+    }
+
+    private List<NumberLocation> setTopOrUnderCountable(List<NumberLocation> allNumbersInLine, String line, String testLine) {
+        for(int i= 0; i < allNumbersInLine.size(); i++) {
+
+        }
+        return allNumbersInLine;
+    }
+
+    public List<NumberLocation> setCountable(List<NumberLocation> allNumbersInLine, String line) {          // wieder private!!!!
+        for(int i = 0; i < allNumbersInLine.size(); i++) {
+            if(i !=0 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()-1)) == true) {
+                allNumbersInLine.get(i).setCountableTrue();
+            }
+            else if(i != allNumbersInLine.size()-1 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()+3)) == true) {
+                allNumbersInLine.get(i).setCountableTrue();
+            }
+        }
+        return allNumbersInLine;
     }
 
     private boolean isSymbol(char char1) {

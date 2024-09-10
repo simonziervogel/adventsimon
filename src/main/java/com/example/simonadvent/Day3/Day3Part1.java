@@ -24,7 +24,7 @@ public class Day3Part1 {
         int solvevariable =0;
 
         try{
-        List<String> lines = fileReader.readLinesFromResourceFile("test.txt");
+            List<String> lines = fileReader.readLinesFromResourceFile("test.txt");
             String lineTop;
             String lineUnder;
             for (int i = 0; i < lines.size(); i++) {
@@ -37,7 +37,7 @@ public class Day3Part1 {
                 String line = lines.get(i);
 
                 if (i == lines.size() - 1) {
-                    lineUnder = ""; // next line does not exist for last line
+                    lineUnder = "0"; // next line does not exist for last line
                 } else {
                     lineUnder = lines.get(i + 1);
                 }
