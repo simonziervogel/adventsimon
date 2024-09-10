@@ -5,14 +5,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.OptionalInt;
 
+import static com.example.simonadvent.Utils.*;
+
+
 @Component
 public class Zahlenzieher {
 
-    private Utils utils;
+    
 
-    public Zahlenzieher(Utils utils) {
-        this.utils = utils;
-    }
+    
 
     private static final String[] SEARCH_TERMS = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
@@ -20,11 +21,11 @@ public class Zahlenzieher {
         char first;
         char last;
         char[] arr = str.toCharArray();
-        var hasDigit = utils.giveFirstDigit(arr) > 0;
+        var hasDigit = giveFirstDigit(arr) > 0;
         // Schritt 1: prüfe ob str eine Zahl enthält
         if (!str.isEmpty() && hasDigit) {
-            first = utils.giveFirstDigit(arr);
-            last = utils.giveFirstDigit(utils.reverse(arr));
+            first = giveFirstDigit(arr);
+            last = giveFirstDigit(reverse(arr));
             return Integer.parseInt(String.valueOf(first)) * 10 + Integer.parseInt(String.valueOf(last));
         } else {
             return 0;
@@ -56,16 +57,16 @@ public class Zahlenzieher {
     private int advanceExtract(String line, boolean reversed) {
         int temp = Integer.MAX_VALUE;
         int candidate= 0;
-        String strToCheck = reversed ? utils.reverse(line) : line;
+        String strToCheck = reversed ? reverse(line) : line;
         String[] searchTerms = SEARCH_TERMS;
 
         System.out.println("Für diesen String wird berechnet:" + strToCheck);
 
         for (int i = 0; i < searchTerms.length; i++) {
-            var searchTerm = reversed ? utils.reverse(searchTerms[i]) : searchTerms[i];
-            if (utils.isFirst(searchTerm, strToCheck, temp)) {
+            var searchTerm = reversed ? reverse(searchTerms[i]) : searchTerms[i];
+            if (isFirst(searchTerm, strToCheck, temp)) {
                 temp = strToCheck.indexOf(searchTerm);              //HIER line anstatt strToCheck, indizes von falscher seite gezählt, deswegen zunächst doch das erste vom straight string
-                candidate = utils.getNumberForSearchterm(i);
+                candidate = getNumberForSearchterm(i);
             }
         }
 

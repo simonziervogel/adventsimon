@@ -17,14 +17,7 @@ class ZahlenzieherTest {
     @Test
     @DisplayName("simpleExtract(): aus String 12 erste und letzte Zahl ziehen und zusammensetzen")
     public void test() {
-        Utils mockUtils = mock(Utils.class);
-        var sut = new Zahlenzieher(mockUtils);
-
-        // setup for the mock here, for example:
-        when(mockUtils.giveFirstDigit("12".toCharArray())).thenReturn('1');
-        when(mockUtils.giveFirstDigit("21".toCharArray())).thenReturn('2');
-        when(mockUtils.reverse("12".toCharArray())).thenReturn("21".toCharArray());
-
+        var sut = new Zahlenzieher();
 
         var expected = 12;
         int actualNumber = sut.simpleExtractFirstAndLastNumbers("12");
@@ -88,14 +81,7 @@ class ZahlenzieherTest {
     @CsvSource({"hathree4ll6sixo, 36", "ha34ll66o, 36", "rrrrrninetwoffffour33six7, 97" })
     @DisplayName("parameterized advanceExtract()")
     public void test4_3(String input, int expected) {
-        Utils mockUtils = mock(Utils.class);
-        var sut = new Zahlenzieher(mockUtils);
-
-
-        when(mockUtils.reverse(any(String.class))).thenCallRealMethod();
-        when(mockUtils.reverse(any(char[].class))).thenCallRealMethod();
-        when(mockUtils.getNumberForSearchterm(anyInt())).thenCallRealMethod();
-        when(mockUtils.isFirst(any(), any(), anyInt())).thenCallRealMethod();
+        var sut = new Zahlenzieher();
 
         int actualNumber = sut.advanceExtract(input);
 
