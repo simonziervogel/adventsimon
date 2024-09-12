@@ -5,6 +5,7 @@ import com.example.simonadvent.Utils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,50 +14,78 @@ import java.util.regex.Pattern;
 public class Filter {
 
 
-    public Filter() {
 
-    }
     public int returnFinalNumber(String lineTop, String line, String lineUnder) {
         List<NumberLocation> allNumbersInLine = extractNumbersWithLocations(line);     // Liste des DatenTyps Number+Location der Number speichert für line alle nummern und location
         if(!lineTop.equals("0")) { // Exception Handling aber manuell
-            allNumbersInLine = this.setTopOrUnderCountable(allNumbersInLine, line, lineTop);     //setCountableRegardingTop, topline prüfen
+            allNumbersInLine = this.setCountable(allNumbersInLine, lineTop);     //setCountableRegardingTop, topline prüfen
         }
         allNumbersInLine = this.setCountable(allNumbersInLine, line);   //steCountableRegardingLine
 
         if(!lineUnder.equals("0")) {
-            allNumbersInLine = this.setTopOrUnderCountable(allNumbersInLine, line, lineUnder);     //setCountable Regarding Under
+            allNumbersInLine = this.setCountable(allNumbersInLine, lineUnder);     //setCountable Regarding Under
         }
 
         //alle nummern in allnumbersinline countabletrue/false setzen und dann alle zusammenaddieren die true
-        for (NumberLocation nl : allNumbersInLine) {
-            System.out.println("Number: " + nl.getNumber() + ", Location: " + nl.getLocation() + ", Countable: " + nl.getCountable());
+        /*for (NumberLocation nl : allNumbersInLine) {
+            System.out.println("Number:     " + nl.getNumber() + ", Location:   " + nl.getLocation() + ", Countable:    " + nl.getCountable());
 
-        }
+        }*/
         int returnvalue = 0;
-        for(NumberLocation nl : allNumbersInLine) {
+        /*for(NumberLocation nl : allNumbersInLine) {
             if(nl.getCountable().equals(true)){
             returnvalue = returnvalue + Integer.parseInt(nl.getNumber());
             }
+        }*/
+        for(int i = 0; i < allNumbersInLine.size(); i++) {
+            System.out.println("Number: " + allNumbersInLine.get(i).getNumber() + ", Location: " + allNumbersInLine.get(i).getLocation() + ", Countable: " + allNumbersInLine.get(i).getCountable());
+            if(allNumbersInLine.get(i).getCountable()) {
+                //System.out.println("Für diese Nummer wird gezählt" + allNumbersInLine.get(i).getNumber());
+                returnvalue += Integer.parseInt(allNumbersInLine.get(i).getNumber());
+            }
         }
+
+
         return returnvalue;
     }
 
-    private List<NumberLocation> setTopOrUnderCountable(List<NumberLocation> allNumbersInLine, String line, String testLine) {
-        for(int i= 0; i < allNumbersInLine.size(); i++) {
 
-        }
-        return allNumbersInLine;
-    }
 
-    public List<NumberLocation> setCountable(List<NumberLocation> allNumbersInLine, String line) {          // wieder private!!!!
+    public List<NumberLocation> setCountable(List<NumberLocation> allNumbersInLine, String line) {// wieder private!!!!
+       /* int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        var neueliste = allNumbersInLine.stream().;*/
         for(int i = 0; i < allNumbersInLine.size(); i++) {
-            if(i !=0 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()-1)) == true) {
-                allNumbersInLine.get(i).setCountableTrue();
+            int temp = 0;
+            int lengthOfCurrentNumber = allNumbersInLine.get(i).getNumber().length();
+            int indexOfLastNumber = allNumbersInLine.get(i).getLocation() + lengthOfCurrentNumber;
+            int lastPositionOfNumberOrCharacterAfter = 0;
+            if (indexOfLastNumber == line.length()) {
+                lastPositionOfNumberOrCharacterAfter = indexOfLastNumber;
+            } else {
+                lastPositionOfNumberOrCharacterAfter = indexOfLastNumber + 1;
+
             }
-            else if(i != allNumbersInLine.size()-1 && isSymbol(line.charAt(allNumbersInLine.get(i).getLocation()+3)) == true) {
-                allNumbersInLine.get(i).setCountableTrue();
+            if(allNumbersInLine.get(i).getLocation()==0){
+                temp = 0;
             }
-        }
+            /*else if(allNumbersInLine.get(i).getLocation()==line.length()){
+
+            }*/
+            else {
+                temp = allNumbersInLine.get(i).getLocation() - 1;} //-1 damit er bei 1 vor start des ints beginnt zu scannen
+            while (temp < lastPositionOfNumberOrCharacterAfter) {             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Testklassen funktionieren mit +1, ohne nicht, ganzes Programm genau umgekehrt
+                /*if(temp>=0 && isSymbol(line.charAt(temp)) == true && temp <= line.length()) {
+                allNumbersInLine.get(i).setCountableTrue();
+                }
+                temp++;*/
+                    if (isSymbol(line.charAt(temp)) == true) {
+                        allNumbersInLine.get(i).setCountableTrue();
+                    }
+                    temp++;
+                }
+            }
+
         return allNumbersInLine;
     }
 

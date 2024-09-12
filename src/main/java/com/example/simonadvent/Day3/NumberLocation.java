@@ -25,8 +25,8 @@ public class NumberLocation {
         return this.number;
     }
 
-    public String getCountable() {
-        return this.countable ? "YES" : "NO";
+    public boolean getCountable() {
+        return this.countable;
     }
 
     public void setCountableTrue() {
