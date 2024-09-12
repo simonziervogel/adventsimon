@@ -19,12 +19,18 @@ public class Day3Part1 {
         this.fileReader = fileReader;
         this.filter = filter;
     }
-    public void solve() throws IOException {
+    public void solve() {
+        try {
+            List<String> lines = fileReader.readLinesFromResourceFile("3put.txt");
+            solve(lines);
+        }
+        catch (IOException ex){
+            System.err.println("Error reading file: " + ex.getMessage());
+        }
+    }
 
+    public int solve(List<String> lines)  {
         int solvevariable =0;
-
-        try{
-            List<String> lines = fileReader.readLinesFromResourceFile("test.txt");
             String lineTop;
             String lineUnder;
             for (int i = 0; i < lines.size(); i++) {
@@ -44,10 +50,11 @@ public class Day3Part1 {
                 System.out.println("Line" + (i + 1) + "=" + line);
 
                 solvevariable = solvevariable + filter.returnFinalNumber(lineTop, line, lineUnder);
+
+                System.out.println("Final Number: " + solvevariable);
             }
-        }
-        catch (IOException ex){
-            System.err.println("Error reading file: " + ex.getMessage());
-        }
+
+            return solvevariable;
+
     }
 }
